@@ -1,0 +1,17 @@
+name: Bug report
+description: Zgłoś błąd
+labels: [type:bug]
+body:
+  - type: textarea
+    id: what
+    attributes: { label: Co się stało?, description: Opisz błąd i oczekiwane zachowanie. }
+    validations: { required: true }
+  - type: input
+    id: repro
+    attributes: { label: Kroki reprodukcji, placeholder: "1..., 2..., 3..." }
+  - type: input
+    id: version
+    attributes: { label: Wersja/commit }
+  - type: textarea
+    id: logs
+    attributes: { label: Logi/stacktrace }

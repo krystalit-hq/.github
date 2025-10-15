@@ -1,0 +1,30 @@
+name: Reusable CI (Python & Go)
+on:
+  workflow_call:
+    inputs:
+      python-version: { type: string, default: '3.12' }
+      go-version: { type: string, default: '1.22' }
+      run-python: { type: boolean, default: true }
+      run-go: { type: boolean, default: true }
+jobs:
+  python:
+    if: ${{ inputs.run-python }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: ${{ inputs.python-version }} }
+      - run: pip install -U pip ruff black pytest
+      - run: ruff check .
+      - run: black --check .
+      - run: pytest -q || true  # usuń `|| true`, gdy dodasz testy
+  go:
+    if: ${{ inputs.run-go }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: ${{ inputs.go-version }} }
+      - run: go mod tidy || true
+      - run: go vet ./... || true
+      - run: go test ./... -count=1 || true

@@ -1,0 +1,11 @@
+name: Feature request
+description: Zaproponuj funkcję
+labels: [type:feature]
+body:
+  - type: textarea
+    id: value
+    attributes: { label: Wartość, description: Dlaczego to potrzebne? }
+    validations: { required: true }
+  - type: textarea
+    id: solution
+    attributes: { label: Proponowane rozwiązanie }
